@@ -17,6 +17,12 @@ import com.example.whattowatch.`interface`.Movies
 fun MovieCard(
     movie: Movies
 ){
+
+    val title: String? = movie.title ?: movie.name
+    val releaseDate: String = movie.release_date ?: ""
+
+
+
     ElevatedCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
@@ -26,13 +32,12 @@ fun MovieCard(
     ) {
         Row{
             AsyncImage(
-//                modifier = Modifier.size(width = 140.dp, height = 250.dp),
                 model = "https://media.themoviedb.org/t/p/w440_and_h660_face" + movie.poster_path,
-                contentDescription = movie.title
+                contentDescription = "poster do filme $title"
             )
             Column {
-                Text(text = movie.title, color = Color.White, fontWeight = FontWeight.Bold)
-                Text(text = movie.release_date, color = Color.White)
+                Text(text = "$title", color = Color.White, fontWeight = FontWeight.Bold)
+                Text(text = releaseDate, color = Color.White)
                 Text(text = "${movie.vote_average}", color = Color.White)
             }
         }

@@ -20,9 +20,15 @@ class MovieView: ViewModel() {
     fun getPosts(){
         viewModelScope.launch {
             try {
-                val response = apiService.getPosts(1)
+                val response = apiService.getAllMedia(1)
                 if(response.results.isNotEmpty()){
-                    _movies.value = response.results
+                    val aux = mutableListOf<Movies>()
+                    for(item in response.results){
+                        if(item.media_type == "tv" || item.media_type == "movie"){
+                            aux.add(item)
+                        }
+                    }
+                    _movies.value = aux
                 }
             } catch (e: Exception) {}
         }

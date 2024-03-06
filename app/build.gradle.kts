@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -18,6 +20,20 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+
+        /////
+        val envFile = project.rootProject.file("environments.properties")
+        val properties = Properties()
+        properties.load(envFile.inputStream())
+
+        val tokenKey = properties.getProperty("TOKEN_API") ?: ""
+        buildConfigField(
+            type = "String",
+            name = "TOKEN_API",
+            value = tokenKey
+        )
+        /////
     }
 
     buildTypes {
@@ -35,6 +51,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
