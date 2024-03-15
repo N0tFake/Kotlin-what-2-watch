@@ -17,7 +17,7 @@ class MovieView: ViewModel() {
     private val _movies = MutableStateFlow<List<Movies>>(emptyList())
     val movies = _movies.asStateFlow()
 
-    fun getPosts(){
+    fun getMovies(){
         viewModelScope.launch {
             try {
                 val response = apiService.getAllMedia(1)

@@ -13,5 +13,6 @@ data class Movies(
     val poster_path: String,
     val media_type: String,
     val release_date: String?,
+    val first_air_date: String?,
     val vote_average: Float
 )

@@ -90,4 +90,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:1.0.0-alpha07")
     implementation("androidx.lifecycle:lifecycle-livedata:2.3.1")
 
+    //Navigation
+    implementation("androidx.navigation:navigation-compose:2.7.1")
+
 }
