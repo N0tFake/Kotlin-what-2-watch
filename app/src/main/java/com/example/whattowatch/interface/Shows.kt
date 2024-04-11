@@ -1,11 +1,11 @@
 package com.example.whattowatch.`interface`
 
-data class PageMovies(
+data class PageShows(
     val page: Int,
-    val results: List<Movies>
+    val results: List<Shows>
 )
 
-data class Movies(
+data class Shows(
     val id: Int,
     val title: String?,
     val name: String?,

@@ -1,30 +1,33 @@
-package com.example.whattowatch.components.MovieCard
+package com.example.whattowatch.components.ShowCard
 
 import androidx.compose.material3.Icon
 import android.icu.text.SimpleDateFormat
-import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.*
-import androidx.compose.material3.R
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
-import com.example.whattowatch.`interface`.Movies
+import com.example.whattowatch.What2WatchScreen
+import com.example.whattowatch.`interface`.Shows
+import com.example.whattowatch.view.ShowView
 import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieCard(
-    movie: Movies
+fun ShowCard(
+    movie: Shows,
+    viewModel: ShowView,
+    navController: NavController
 ){
 
     val title: String? = movie.title ?: movie.name
@@ -32,6 +35,14 @@ fun MovieCard(
 
 
     ElevatedCard(
+        onClick = {
+            if(movie.media_type == "movie"){
+                viewModel.getMovieDetails(id = movie.id)
+            }else{
+                viewModel.getTvSeriesDetails(id = movie.id)
+            }
+            navController.navigate(What2WatchScreen.MovieDetails.createRoute(movie.id))
+        },
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
@@ -41,7 +52,7 @@ fun MovieCard(
 
             AsyncImage(
                 model = "https://media.themoviedb.org/t/p/w500" + movie.poster_path,
-                contentDescription = "poster do filme $title",
+                contentDescription = "Poster do filme $title",
             )
 
 
@@ -81,7 +92,7 @@ fun MovieCard(
 }
 
 
-fun formatDate(movie: Movies): String{
+fun formatDate(movie: Shows): String{
 
     val date = movie.release_date ?: movie.first_air_date
 

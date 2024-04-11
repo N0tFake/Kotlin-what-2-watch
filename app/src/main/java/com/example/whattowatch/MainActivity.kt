@@ -26,13 +26,13 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.whattowatch.screens.HomeScreen
 import com.example.whattowatch.ui.theme.WhatToWatchTheme
-import com.example.whattowatch.view.MovieView
+import com.example.whattowatch.view.ShowView
 import com.example.whattowatch.view.SearchViewModel
 import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
 
-    private val moviesViewModel: MovieView by viewModels()
+    private val moviesViewModel: ShowView by viewModels()
     private val searchViewModel: SearchViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,12 +42,13 @@ class MainActivity : ComponentActivity() {
             WhatToWatchTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-                    Box{
-                        HomeScreen(
-                            moviesViewModel = moviesViewModel,
-                            searchViewModel =  searchViewModel
-                        )
-                    }
+//                    Box{
+//                        HomeScreen(
+//                            moviesViewModel = moviesViewModel,
+//                            searchViewModel =  searchViewModel
+//                        )
+//                    }
+                    What2WatchApp(moviesViewModel, searchViewModel)
                 }
             }
         }
