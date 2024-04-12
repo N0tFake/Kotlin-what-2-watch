@@ -1,26 +1,21 @@
 package com.example.whattowatch
 
-import androidx.activity.viewModels
-import androidx.annotation.StringRes
-import androidx.compose.foundation.layout.Box
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.whattowatch.components.BottomAppBar.BottomAppBarComponent
 import com.example.whattowatch.screens.HomeScreen
+import com.example.whattowatch.screens.DiscoveryScreen
 import com.example.whattowatch.screens.ShowDetailsScreen
 import com.example.whattowatch.view.ShowView
 import com.example.whattowatch.view.SearchViewModel
 
 sealed class What2WatchScreen(val route: String) {
     object Home: What2WatchScreen("home")
+    object Discovery: What2WatchScreen("discovery")
     object MovieDetails: What2WatchScreen("movie/{itemId}"){
         fun createRoute(itemId: Int) = "movie/$itemId"
     }
@@ -39,6 +34,7 @@ fun What2WatchApp(
         navController = navController,
         startDestination = What2WatchScreen.Home.route
     ) {
+        // HOME
         composable(What2WatchScreen.Home.route){
             HomeScreen(
                 navController = navController,
@@ -46,6 +42,17 @@ fun What2WatchApp(
                 searchViewModel = searchViewModel
             )
         }
+
+        // DISCOVERY
+        composable(What2WatchScreen.Discovery.route){
+            DiscoveryScreen(
+                navController = navController,
+                moviesViewModel = moviesViewModel,
+                searchViewModel = searchViewModel
+            )
+        }
+
+        // SHOW DETAILS
         composable(
             What2WatchScreen.MovieDetails.route,
             arguments = listOf(navArgument("itemId") {

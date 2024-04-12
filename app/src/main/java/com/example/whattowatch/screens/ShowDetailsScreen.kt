@@ -1,13 +1,11 @@
 package com.example.whattowatch.screens
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavController
-import com.example.whattowatch.components.MovieDetails.MovieDetailsComponet
-import com.example.whattowatch.components.TvSerieDetails.TvSeriesDetailsComponet
+import com.example.whattowatch.components.ShowDetails.MovieDetailsComponet
+import com.example.whattowatch.components.ShowDetails.TvSeriesDetailsComponet
 import com.example.whattowatch.`interface`.MovieDetails
 import com.example.whattowatch.`interface`.ShowDetails
 import com.example.whattowatch.`interface`.TvSeriesDetails

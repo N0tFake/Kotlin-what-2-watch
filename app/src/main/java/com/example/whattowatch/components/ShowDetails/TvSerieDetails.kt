@@ -1,4 +1,4 @@
-package com.example.whattowatch.components.TvSerieDetails
+package com.example.whattowatch.components.ShowDetails
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
@@ -7,7 +7,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import coil.compose.AsyncImage
-import com.example.whattowatch.components.HeaderShowDetails.HeaderShowDetails
+import com.example.whattowatch.components.ShowDetails.BodyShowDetails.BodyShowDetailsComponent
+import com.example.whattowatch.components.ShowDetails.HeaderShowDetails.HeaderShowDetails
 import com.example.whattowatch.`interface`.TvSeriesDetails
 
 @Composable
@@ -18,12 +19,19 @@ fun TvSeriesDetailsComponet(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
+        Text("${serie.id}")
         HeaderShowDetails(
             title = serie.name,
             poster_path = serie.poster_path,
             backdrop_path = serie.backdrop_path,
             date = serie.first_air_date,
-            genres = serie.genres
+            genres = serie.genres,
+            rating = serie.vote_average
+        )
+        BodyShowDetailsComponent(
+            overview = serie.overview,
+            tagline = serie.tagline,
+            created_by = serie.created_by
         )
     }
 

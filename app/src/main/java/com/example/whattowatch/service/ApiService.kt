@@ -1,9 +1,7 @@
 package com.example.whattowatch.service
 
 import com.example.whattowatch.BuildConfig
-import com.example.whattowatch.`interface`.MovieDetails
-import com.example.whattowatch.`interface`.PageShows
-import com.example.whattowatch.`interface`.TvSeriesDetails
+import com.example.whattowatch.`interface`.*
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Path
@@ -34,5 +32,13 @@ interface ApiService {
     )
     @GET("tv/{id}?language=pt-BR")
     suspend fun getTvSeriesDetails(@Path("id") id: Int): TvSeriesDetails
+
+
+    @Headers(
+        "Accept: application/json",
+        AUTHORIZATION
+    )
+    @GET("movie/{id}/credits?language=pt-BR'")
+    suspend fun getCrewDetails(@Path("id") id: Int): GetCreditsCrewModel
 
 }

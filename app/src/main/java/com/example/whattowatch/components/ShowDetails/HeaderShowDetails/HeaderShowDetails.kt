@@ -1,9 +1,13 @@
-package com.example.whattowatch.components.HeaderShowDetails
+package com.example.whattowatch.components.ShowDetails.HeaderShowDetails
 
 import android.icu.text.SimpleDateFormat
+import android.media.Rating
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -22,6 +26,7 @@ fun HeaderShowDetails(
     backdrop_path: String,
     poster_path: String,
     genres: List<Genres>,
+    rating: Float,
     date: String
 ){
 
@@ -29,7 +34,7 @@ fun HeaderShowDetails(
     val releaseDate = formatDate(date)
     val genresText = getGenres(genres)
 
-    Box {
+    Box () {
         AsyncImage(
             model = "https://media.themoviedb.org/t/p/w500$backdrop_path",
             contentDescription = "plano de fundo do filme $title",
@@ -38,7 +43,7 @@ fun HeaderShowDetails(
                 drawRect(color = Color.Black.copy(alpha = 0.5f))
             }
         )
-        Row(
+        Row (
             modifier = Modifier.padding(10.dp)
         ) {
             AsyncImage(
@@ -46,10 +51,13 @@ fun HeaderShowDetails(
                 contentDescription = "Poster do filme$title",
                 modifier = Modifier.width(125.dp)
             )
-            Column {
+            Column (
+                modifier = Modifier.padding(start = 10.dp)
+            ) {
                 Text(text = "$title ($year)")
                 Text(text = releaseDate)
                 Text(text = genresText)
+                BadgeRating(rating)
             }
         }
     }
@@ -73,4 +81,26 @@ fun formatDate(date: String): String{
 
 fun getGenres(genres: List<Genres>): String{
     return genres.joinToString(", ") {it.name}
+}
+
+@Composable
+fun BadgeRating(
+    value: Float
+){
+
+    Row {
+
+        Icon(
+            imageVector = Icons.Default.Star,
+            contentDescription = "Star rating",
+            tint = Color.Yellow,
+            modifier = Modifier.size(16.dp)
+        )
+
+        Text(
+            text = String.format("%.1f", value),
+
+            )
+    }
+
 }

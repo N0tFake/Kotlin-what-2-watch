@@ -11,7 +11,8 @@ data class MovieDetails(
     val status: String,
     val tagline: String,
     val title: String,
-    val vote_average: Float
+    val vote_average: Float,
+    val created_by: List<Created>
 )
 
 data class TvSeriesDetails(
@@ -47,6 +48,16 @@ data class Genres(
     val name: String
 )
 
+
+data class GetCreditsCrewModel(
+    val crew: List<CrewDetailsModel>
+)
+
+data class CrewDetailsModel(
+    val job: String,
+    val department: String,
+    val name: String
+)
 
 sealed class ShowDetails<out L, out R> {
     data class Movie<out L>(val a: L): ShowDetails<L, Nothing>()
