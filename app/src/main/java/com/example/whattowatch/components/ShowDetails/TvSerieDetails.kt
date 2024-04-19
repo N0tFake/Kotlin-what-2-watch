@@ -19,7 +19,6 @@ fun TvSeriesDetailsComponet(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        Text("${serie.id}")
         HeaderShowDetails(
             title = serie.name,
             poster_path = serie.poster_path,

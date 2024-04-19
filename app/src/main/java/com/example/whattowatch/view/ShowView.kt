@@ -4,14 +4,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.whattowatch.`interface`.*
 import com.example.whattowatch.service.RetrofitClient
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-
-
-typealias MovieOrTvSerieDetails = ShowDetails<MovieDetails?, TvSeriesDetails?>
 
 class ShowView: ViewModel() {
     private val apiService = RetrofitClient.api
@@ -22,8 +18,22 @@ class ShowView: ViewModel() {
     private val _movies = MutableStateFlow<List<Shows>>(emptyList())
     val movies = _movies.asStateFlow()
 
+    private val _showsSearched = MutableStateFlow<List<Shows>>(emptyList())
+    val showsSearched = _showsSearched.asStateFlow()
+
     private val _showDetails = MutableStateFlow<MovieOrTvSerieDetails?>(ShowDetails.Movie(null))
     val showDetails = _showDetails.asStateFlow()
+
+    private val _showsToWatch = MutableStateFlow<List<Shows>>(emptyList())
+    val showsToWatch = _showsToWatch.asStateFlow()
+
+    private val _showsViewed = MutableStateFlow<List<Shows>>(emptyList())
+    val showsViewed = _showsViewed.asStateFlow()
+
+    fun addShowToWatch(show: Shows){
+        val updatedList = _showsToWatch.value + show
+        _showsToWatch.value = updatedList
+    }
 
     fun getMovies(){
         viewModelScope.launch {
@@ -44,9 +54,16 @@ class ShowView: ViewModel() {
         }
     }
 
+    fun updateValueWithSearchShows(searchShows: List<Shows>){
+        _showsSearched.value = searchShows
+//        return _showsSearched.value
+    }
+
     fun getMovieDetails(id: Int){
         viewModelScope.launch {
             try {
+                _loading.value = true
+
                 val response = apiService.getMovieDetails(id = id)
                 val responseCrew = apiService.getCrewDetails(id=id)
 
@@ -66,6 +83,7 @@ class ShowView: ViewModel() {
 
                 _showDetails.value = ShowDetails.Movie(updateResponse)
 
+                _loading.value = false
             } catch (e: Exception) {}
         }
     }
@@ -73,8 +91,12 @@ class ShowView: ViewModel() {
     fun getTvSeriesDetails(id: Int){
         viewModelScope.launch {
             try {
+                _loading.value = true
+
                 val response = apiService.getTvSeriesDetails(id = id)
                 _showDetails.value = ShowDetails.TvSerie(response)
+
+                _loading.value = false
             } catch (e: Exception) {}
         }
     }

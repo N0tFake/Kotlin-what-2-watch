@@ -30,6 +30,13 @@ data class TvSeriesDetails(
     val vote_average: Float
 )
 
+sealed class ShowDetails<out L, out R> {
+    data class Movie<out L>(val a: L): ShowDetails<L, Nothing>()
+    data class TvSerie<out R>(val b: R): ShowDetails<Nothing, R>()
+}
+
+typealias MovieOrTvSerieDetails = ShowDetails<MovieDetails?, TvSeriesDetails?>
+
 data class Created(
     val name: String,
 )
@@ -58,8 +65,3 @@ data class CrewDetailsModel(
     val department: String,
     val name: String
 )
-
-sealed class ShowDetails<out L, out R> {
-    data class Movie<out L>(val a: L): ShowDetails<L, Nothing>()
-    data class TvSerie<out R>(val b: R): ShowDetails<Nothing, R>()
-}

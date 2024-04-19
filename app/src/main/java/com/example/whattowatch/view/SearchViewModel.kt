@@ -2,6 +2,7 @@ package com.example.whattowatch.view
 
 import androidx.lifecycle.ViewModel
 import com.example.whattowatch.`interface`.SearchWidgetState
+import com.example.whattowatch.`interface`.Shows
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
@@ -20,5 +21,16 @@ class SearchViewModel: ViewModel() {
 
     fun updateSearchTextState(newValue: String){
         _searchTextState.value = newValue
+    }
+
+    fun isEmptyText(): Boolean{
+        return _searchTextState.value == ""
+    }
+
+    fun searchShow(shows: List<Shows>, query: String): List<Shows>{
+        return shows.filter { show ->
+            show.title?.contains(query, ignoreCase = true) == true ||
+            show.name?.contains(query,ignoreCase = true) == true
+        }
     }
 }
