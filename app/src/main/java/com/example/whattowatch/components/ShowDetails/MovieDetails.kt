@@ -6,10 +6,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.whattowatch.components.ShowDetails.BodyShowDetails.BodyShowDetailsComponent
 import com.example.whattowatch.components.ShowDetails.HeaderShowDetails.HeaderShowDetails
@@ -21,7 +23,8 @@ import com.example.whattowatch.view.ShowView
 @Composable
 fun MovieDetailsComponet(
     viewModel: ShowView,
-    movie: MovieDetails
+    movie: MovieDetails,
+    navController: NavController,
 ){
 
 
@@ -29,26 +32,31 @@ fun MovieDetailsComponet(
 
     val show = movie.toShow()
     Column (modifier = Modifier.fillMaxWidth().fillMaxHeight()) {
-        Button(
-            onClick = {
-                viewModel.addShowToWatch(show)
-            }
-        ){
-            Text("Teste")
-        }
+
         HeaderShowDetails(
             title = movie.title,
             poster_path = movie.poster_path,
             backdrop_path = movie.backdrop_path,
             date = movie.release_date,
             genres = movie.genres,
-            rating = movie.vote_average
+            rating = movie.vote_average,
+            navController = navController
         )
         BodyShowDetailsComponent(
             overview = movie.overview,
             tagline = movie.tagline,
             created_by = movie.created_by
         )
+
+        Spacer(modifier = Modifier.weight(1f))
+        Button(
+            onClick = {
+                viewModel.addShowToWatch(show)
+            },
+            modifier = Modifier.padding(bottom = 10.dp).align(Alignment.CenterHorizontally)
+        ){
+            Text("Adicionar a Lista")
+        }
     }
 }
 

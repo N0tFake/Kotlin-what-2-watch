@@ -6,17 +6,24 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.whattowatch.What2WatchApp
+import com.example.whattowatch.What2WatchScreen
 import com.example.whattowatch.`interface`.Genres
 import com.example.whattowatch.`interface`.Shows
+import com.example.whattowatch.view.ShowView
 import java.time.format.DateTimeFormatter
 import java.util.*
 
@@ -27,7 +34,8 @@ fun HeaderShowDetails(
     poster_path: String,
     genres: List<Genres>,
     rating: Float,
-    date: String
+    date: String,
+    navController: NavController,
 ){
 
     val year = getYear(date)
@@ -46,6 +54,12 @@ fun HeaderShowDetails(
         Row (
             modifier = Modifier.padding(10.dp)
         ) {
+//            IconButton(onClick = {
+//                navController.navigate(What2WatchScreen.Discovery.route)
+//            }) {
+//                Icon(imageVector = Icons.Filled., contentDescription = "Pesquisar")
+//            }
+            Text("Some text")
             AsyncImage(
                 model = "https://media.themoviedb.org/t/p/w500$poster_path",
                 contentDescription = "Poster do filme$title",

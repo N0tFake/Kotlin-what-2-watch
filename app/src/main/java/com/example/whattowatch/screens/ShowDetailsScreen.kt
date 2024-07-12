@@ -20,7 +20,7 @@ import com.example.whattowatch.view.ShowView
 fun ShowDetailsScreen(
     navController: NavController,
     viewModel: ShowView,
-    id: String
+    id: String,
 ){
 
     val isLoading by viewModel.loading.collectAsState()
@@ -37,13 +37,13 @@ fun ShowDetailsScreen(
             is ShowDetails.Movie -> {
                 val movieDetails = (show as ShowDetails.Movie<MovieDetails?>).a
                 if (movieDetails != null) {
-                    MovieDetailsComponet(viewModel, movieDetails)
+                    MovieDetailsComponet(viewModel, movieDetails, navController)
                 }
             }
             is ShowDetails.TvSerie -> {
                 val serieDetails = (show as ShowDetails.TvSerie<TvSeriesDetails?>).b
                 if (serieDetails != null){
-                    TvSeriesDetailsComponet(serie = serieDetails)
+                    TvSeriesDetailsComponet(serieDetails, viewModel, navController)
                 }
             }
 
